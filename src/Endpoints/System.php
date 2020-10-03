@@ -39,4 +39,15 @@ class System extends AbstractEndpoint
     {
         return new System\Groups($this->api);
     }
+
+    /**
+     * Authorized user endpoints
+     * /core/me
+     * OAuth only endpoint
+     * @return System\User
+     */
+    public function user(): System\User
+    {
+        return new System\User($this->api);
+    }
 }
