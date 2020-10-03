@@ -2,4 +2,6 @@
 
 namespace InvisionApi\Exceptions;
 
-class TokenException extends ApiException {}
+class TokenException extends ApiException
+{
+}

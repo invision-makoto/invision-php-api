@@ -2,6 +2,6 @@
 
 namespace InvisionApi\Exceptions;
 
-class ServerException extends ApiException
+class BannedException extends ApiException
 {
 }
