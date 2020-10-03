@@ -41,17 +41,18 @@ abstract class AbstractEndpoint
      * @param \Psr\Http\Message\ResponseInterface $response
      * @return \stdClass
      */
-    public function parseResponse(\Psr\Http\Message\ResponseInterface $response): \stdClass
+    public function parseResponse(\Psr\Http\Message\ResponseInterface $response): ?\stdClass
     {
         // Any errors?
-        if ( $response->getStatusCode() !== 200 )
+        $statusCode = $response->getStatusCode();
+        if ($statusCode !== 200 and $statusCode !== 201)
         {
             $data = \json_decode($response->getBody());
 
             // If we didn't get an error message returned, then the server is either down or misconfigured
             if (!\property_exists($data, 'errorMessage'))
             {
-                throw new ServerException((string)$response->getStatusCode(), ' SERVER_ERROR');
+                throw new ServerException((string)$statusCode, 'SERVER_ERROR');
             }
 
             switch ($data->errorMessage)
