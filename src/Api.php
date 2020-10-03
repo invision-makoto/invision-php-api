@@ -51,7 +51,7 @@ class Api
      * @param array $extra An array of extra HTTP options
      * @return array
      */
-    protected function opts( array $extra = [] ): array
+    public function opts( array $extra = [] ): array
     {
         $options = [
             'headers'   => [
