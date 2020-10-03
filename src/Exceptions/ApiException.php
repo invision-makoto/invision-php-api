@@ -23,7 +23,7 @@ abstract class ApiException extends \Exception
 	 * @param string $errorCode Error code in IPS error code format
      * @param string $errorMessage Error message. This is not a user friendly error message, see the documentation for error definitions
      */
-    public function __construct(?string $errorCode, ?string $errorMessage)
+    public function __construct(?string $errorCode = null, ?string $errorMessage = null)
     {
         $this->errorCode = $errorCode;
         $this->errorMessage = $errorMessage;

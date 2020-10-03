@@ -43,7 +43,7 @@ class Api
         $this->accessToken = $accesToken;
         $this->oauth = $oauth;
 
-        $this->client = new \GuzzleHttp\Client(['base_uri' => $this->apiUrl]);
+        $this->client = new \GuzzleHttp\Client(['base_uri' => $this->apiUrl, 'http_errors' => false]);
     }
 
     /**

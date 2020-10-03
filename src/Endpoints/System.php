@@ -16,10 +16,14 @@ class System extends \InvisionApi\Endpoints\AbstractEndpoint
         parent::__construct($api);
     }
 
-    public function ping()
+    /**
+     * GET /cote/hello
+     * @return \stdclass
+     */
+    public function ping(): \stdClass
     {
         /** @param \Psr\Http\Message\ResponseInterface $response */
         $response = $this->client->request('GET', static::ENDPOINT . 'hello', $this->api->opts());
-        return \json_decode($response->getBody());
+        return $this->parseResponse($response);
     }
 }
