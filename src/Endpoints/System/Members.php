@@ -112,7 +112,6 @@ class Members extends \InvisionApi\Endpoints\AbstractEndpoint
      * @param int $memberId member ID
      * @param int $page Page number
      * @param int $perPage Number of results per page - defaults to 25
-     * @param array $parameters Additional search paremeters
      * @throws ApiException
      * @return \stdClass
      */
@@ -179,6 +178,82 @@ class Members extends \InvisionApi\Endpoints\AbstractEndpoint
     {
         /** @param \Psr\Http\Message\ResponseInterface $response */
         $response = $this->client->request('GET', static::ENDPOINT . "{$id}/notifications", $this->api->opts());
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * Get list of warnings for a member
+     * GET /core/members/{memberId}/warnings
+     * @param int $memberId member ID
+     * @param int $page Page number
+     * @param int $perPage Number of results per page - defaults to 25
+     * @throws ApiException
+     * @return \stdClass
+     */
+    public function listWarnings(int $memberId, int $page = 1, int $perPage = 25): \stdClass
+    {
+        /** @param \Psr\Http\Message\ResponseInterface $response */
+        $response = $this->client->request('GET', static::ENDPOINT . "{$memberId}/warnings", $this->api->opts([
+            'query' => ['page' => $page, 'perPage' => $perPage]
+        ]));
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * Get a specific warning for a member
+     * GET /core/members/{memberId}/warnings/{warningId}
+     * @param int $memberId member ID
+     * @param int $warningId warning ID
+     * @throws ApiException
+     * @return \stdClass
+     */
+    public function getWarning(int $memberId, int $warningId): \stdClass
+    {
+        /** @param \Psr\Http\Message\ResponseInterface $response */
+        $response = $this->client->request('GET', static::ENDPOINT . "{$memberId}/warnings/{$warningId}", $this->api->opts());
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * Store a new warning for the member
+     * POST /core/members/{memberId}/warnings
+     * @param int|null $memberId member ID.
+     * @param array $parameters Warning paremeters; moderator is required if not using OAuth authorization
+     * @throws ApiException
+     * @return \stdClass
+     */
+    public function addWarning(int $memberId, array $parameters = []): \stdClass
+    {
+        /** @param \Psr\Http\Message\ResponseInterface $response */
+        $response = $this->client->request('POST', static::ENDPOINT . "{$memberId}/warnings", $this->api->opts([
+            'form_params' => $parameters
+        ]));
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * Delete (undo) a warning for the member
+     * @param int $memberId
+     * @param int $warningId
+     * @return null
+     */
+    public function deleteWarning(int $memberId, int $warningId)
+    {
+        /** @param \Psr\Http\Message\ResponseInterface $response */
+        $response = $this->client->request('DELETE', static::ENDPOINT . "{$memberId}/warnings/{$warningId}", $this->api->opts());
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * Acknowledge a warning
+     * @param int $memberId
+     * @param int $warningId
+     * @return \stdClass
+     */
+    public function acknowledgeWarning(int $memberId, int $warningId): \stdClass
+    {
+        /** @param \Psr\Http\Message\ResponseInterface $response */
+        $response = $this->client->request('POST', static::ENDPOINT . "{$memberId}/warnings/{$warningId}/acknowledge", $this->api->opts());
         return $this->parseResponse($response);
     }
 }
