@@ -16,5 +16,9 @@
         "psr-4": {
             "InvisionApi\\": "src/"
         }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.1",
+        "psy/psysh": "^0.10.4"
     }
 }
