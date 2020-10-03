@@ -24,5 +24,6 @@ abstract class AbstractEndpoint
     public function __construct( \InvisionApi\Api $api )
     {
         $this->api = $api;
+        $this->client = $api->client;
     }
 }

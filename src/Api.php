@@ -47,6 +47,15 @@ class Api
     }
 
     /**
+     * /api/core endpoint
+     * @return Endpoints\System
+     */
+    public function system()
+    {
+        return new Endpoints\System($this);
+    }
+
+    /**
      * Generate the default HTTP options, including the authorization token
      * @param array $extra An array of extra HTTP options
      * @return array

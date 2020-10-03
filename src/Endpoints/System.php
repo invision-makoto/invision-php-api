@@ -13,13 +13,13 @@ class System extends \InvisionApi\Endpoints\AbstractEndpoint
      */
     public function __construct(\InvisionApi\Api $api)
     {
-        \parent::__construct($api);
+        parent::__construct($api);
     }
 
     public function ping()
     {
         /** @param \Psr\Http\Message\ResponseInterface $response */
         $response = $this->client->request('GET', static::ENDPOINT . 'hello', $this->api->opts());
-        return (object) $response->json();
+        return \json_decode($response->getBody());
     }
 }
