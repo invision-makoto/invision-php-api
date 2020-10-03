@@ -80,6 +80,6 @@ class Api
             $options['query']['key'] = $this->accessToken;
         }
 
-        return \array_merge($options, $extra);
+        return \array_merge_recursive($options, $extra);
     }
 }
