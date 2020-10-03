@@ -4,6 +4,8 @@ namespace InvisionApi;
 
 class Api
 {
+    const API_VERSION = 1.0;
+
     /**
      * The IPS API endpoint
      * @var string
@@ -26,7 +28,7 @@ class Api
      * GuzzleHttp Client
      * @var \GuzzleHttp\Client
      */
-    protected $client;
+    public $client;
 
     /**
      * Initialize a new API instance
@@ -42,5 +44,33 @@ class Api
         $this->oauth = $oauth;
 
         $this->client = new \GuzzleHttp\Client(['base_uri' => $this->apiUrl]);
+    }
+
+    /**
+     * Generate the default HTTP options, including the authorization token
+     * @param array $extra An array of extra HTTP options
+     * @return array
+     */
+    protected function opts( array $extra = [] ): array
+    {
+        $options = [
+            'headers'   => [
+                'User-Agent' => 'invisiondev/' . static::API_VERSION,
+                'Accept'     => 'application/json'
+            ],
+            'query'     => []
+        ];
+        
+        // Authenticate using either an API key or OAuth token
+        if ( $this->oauth )
+        {
+            $options['headers']['Authorization'] = "Bearer: {$this->accessToken}";
+        }
+        else
+        {
+            $options['query']['key'] = $this->accessToken;
+        }
+
+        return \array_merge($options, $extra);
     }
 }
