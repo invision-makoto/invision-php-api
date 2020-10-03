@@ -9,6 +9,7 @@ use InvisionApi\Exceptions\TokenExpiredException;
 use InvisionApi\Exceptions\PermissionException;
 use InvisionApi\Exceptions\BadRequestException;
 use InvisionApi\Exceptions\AppUnavailableException;
+use InvisionApi\Exceptions\NotFoundException;
 
 abstract class AbstractEndpoint
 {
@@ -84,6 +85,9 @@ abstract class AbstractEndpoint
                 case 'APP_DISABLED':
                 case 'INVALID_APP':
                     throw new AppUnavailableException($data->errorCode, $data->errorMessage);
+
+                case 'INVALID_ID':
+                    throw new NotFoundException($data->errorCode, $data->errorMessage);
 
                 default:
                     throw new ServerException($data->errorCode, $data->errorMessage);
