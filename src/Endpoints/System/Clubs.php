@@ -30,7 +30,7 @@ class Clubs extends \InvisionApi\Endpoints\AbstractEndpoint
     }
 
     /**
-     * Get specific club
+     * Get a specific club
      * GET /core/clubs/{id}
      * @param int $id Club ID
      * @throws ApiException
@@ -47,7 +47,7 @@ class Clubs extends \InvisionApi\Endpoints\AbstractEndpoint
      * Create a club
      * POST /core/clubs
      * @param int $id Club ID
-     * @param array $parameters Edit field parameters
+     * @param array $parameters Creation parameters
      * @throws ApiException
      * @return \stdclass
      */
