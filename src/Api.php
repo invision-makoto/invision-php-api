@@ -47,7 +47,8 @@ class Api
     }
 
     /**
-     * /api/core endpoint
+     * System endpoints
+     * /core
      * @return Endpoints\System
      */
     public function system()

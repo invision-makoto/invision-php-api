@@ -71,9 +71,11 @@ abstract class AbstractEndpoint
 
                 case 'IP_ADDRESS_NOT_ALLOWED':
                 case 'NO_SCOPES':
+                case 'CLIENT_ONLY':
                     throw new UnauthorizedException($data->errorCode, $data->errorMessage);
 
                 case 'NO_PERMISSION':
+                case 'CANNOT_CREATE':
                     throw new PermissionException($data->errorCode, $data->errorMessage);
 
                 case 'BAD_METHOD':
@@ -87,6 +89,7 @@ abstract class AbstractEndpoint
                     throw new AppUnavailableException($data->errorCode, $data->errorMessage);
 
                 case 'INVALID_ID':
+                case 'INVALID_MEMBER':
                     throw new NotFoundException($data->errorCode, $data->errorMessage);
 
                 default:
