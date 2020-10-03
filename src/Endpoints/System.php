@@ -29,4 +29,14 @@ class System extends AbstractEndpoint
     {
         return new System\Clubs($this->api);
     }
+
+    /**
+     * Group endpoints
+     * /core/groups
+     * @return System\Groups
+     */
+    public function groups(): System\Groups
+    {
+        return new System\Groups($this->api);
+    }
 }
