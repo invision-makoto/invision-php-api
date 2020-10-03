@@ -1,5 +1,20 @@
 {
+    "name": "invisiondev/invision-php-api",
+    "description": "Provides easy access to the API for Invision Community Suite installations",
     "require": {
+        "php": ">=7.1.0",
         "guzzlehttp/guzzle": "^7.1"
+    },
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Makoto",
+            "email": "makoto+github@taiga.sh"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "InvisionApi\\": "src/"
+        }
     }
 }
