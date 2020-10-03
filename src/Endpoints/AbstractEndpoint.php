@@ -30,7 +30,7 @@ abstract class AbstractEndpoint
      * @param \InvisionApi\Api $api
      * @return void
      */
-    public function __construct( \InvisionApi\Api $api )
+    public function __construct(\InvisionApi\Api $api)
     {
         $this->api = $api;
         $this->client = $api->client;

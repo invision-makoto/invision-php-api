@@ -37,7 +37,7 @@ class Api
      * @param bool $oauth When true, will use OAuth authentication on endpoints instead of API keys
      * @return void
      */
-    public function __construct( string $apiUrl, string $accesToken, bool $oauth = false )
+    public function __construct(string $apiUrl, string $accesToken, bool $oauth = false)
     {
         $this->apiUrl = \rtrim($apiUrl, '/ ') . '/';
         $this->accessToken = $accesToken;
@@ -61,7 +61,7 @@ class Api
      * @param array $extra An array of extra HTTP options
      * @return array
      */
-    public function opts( array $extra = [] ): array
+    public function opts(array $extra = []): array
     {
         $options = [
             'headers'   => [

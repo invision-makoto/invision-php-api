@@ -3,7 +3,7 @@
 namespace InvisionApi\Endpoints;
 use InvisionApi\Exceptions\ApiException;
 
-class System extends \InvisionApi\Endpoints\AbstractEndpoint
+class System extends AbstractEndpoint
 {
     const ENDPOINT = 'core/';
 
@@ -25,7 +25,7 @@ class System extends \InvisionApi\Endpoints\AbstractEndpoint
      * /core/clubs
      * @return System\Clubs
      */
-    public function clubs()
+    public function clubs(): System\Clubs
     {
         return new System\Clubs($this->api);
     }

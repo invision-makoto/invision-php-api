@@ -17,7 +17,7 @@ class Clubs extends \InvisionApi\Endpoints\AbstractEndpoint
      * @throws ApiException
      * @return \stdClass
      */
-    public function list(int $page = 1, int $perPage = 25)
+    public function list(int $page = 1, int $perPage = 25): \stdClass
     {
         /** @param \Psr\Http\Message\ResponseInterface $response */
         $response = $this->client->request('GET', static::ENDPOINT, $this->api->opts([
