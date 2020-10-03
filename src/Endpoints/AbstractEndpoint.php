@@ -10,7 +10,7 @@ use InvisionApi\Exceptions\PermissionException;
 use InvisionApi\Exceptions\BadRequestException;
 use InvisionApi\Exceptions\AppUnavailableException;
 use InvisionApi\Exceptions\NotFoundException;
-use OAuthException;
+use InvisionApi\Exceptions\OAuthException;
 
 abstract class AbstractEndpoint
 {
@@ -68,6 +68,7 @@ abstract class AbstractEndpoint
                     throw new TokenExpiredException($data->errorCode, $data->errorMessage);
 
                 case 'MEMBER_ONLY':
+                case 'CLIENT_ONLY':
                     throw new OAuthException;
 
                 case 'IP_ADDRESS_BANNED':
@@ -76,7 +77,6 @@ abstract class AbstractEndpoint
 
                 case 'IP_ADDRESS_NOT_ALLOWED':
                 case 'NO_SCOPES':
-                case 'CLIENT_ONLY':
                     throw new UnauthorizedException($data->errorCode, $data->errorMessage);
 
                 case 'NO_PERMISSION':
@@ -87,6 +87,10 @@ abstract class AbstractEndpoint
                 case 'NO_ENDPOINT':
                 case 'INVALID_CONTROLLER':
                 case 'INVALID_LANGUAGE':
+                case 'NO_USERNAME_OR_EMAIL':
+                case 'INVALID_GROUP':
+                case 'EMAIL_EXISTS':
+                case 'USERNAME_EXISTS':
                     throw new BadRequestException($data->errorCode, $data->errorMessage);
 
                 case 'APP_DISABLED':

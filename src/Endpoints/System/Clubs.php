@@ -46,7 +46,6 @@ class Clubs extends \InvisionApi\Endpoints\AbstractEndpoint
     /**
      * Create a club
      * POST /core/clubs
-     * @param int $id Club ID
      * @param array $parameters Creation parameters
      * @throws ApiException
      * @return \stdclass

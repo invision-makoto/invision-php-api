@@ -50,4 +50,14 @@ class System extends AbstractEndpoint
     {
         return new System\User($this->api);
     }
+
+    /**
+     * Member management endpoints
+     * /core/members
+     * @return System\Members
+     */
+    public function members(): System\Members
+    {
+        return new System\Members($this->api);
+    }
 }
