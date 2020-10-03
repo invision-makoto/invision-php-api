@@ -25,7 +25,7 @@ class Members extends \InvisionApi\Endpoints\AbstractEndpoint
     {
         /** @param \Psr\Http\Message\ResponseInterface $response */
         $response = $this->client->request('GET', static::ENDPOINT, $this->api->opts([
-            'query' => \array_merge_recursive(['page' => $page,'perPage' => $perPage], (array)$parameters)
+            'query' => \array_merge_recursive(['page' => $page, 'perPage' => $perPage], (array)$parameters)
         ]));
         return $this->parseResponse($response);
     }
@@ -90,7 +90,7 @@ class Members extends \InvisionApi\Endpoints\AbstractEndpoint
      * @param string|null $contentAction Dictates whether to delete, hide, or leave a members content
      * @param bool $contentAnonymize Keep member name or anonymize content
      * @throws ApiException
-     * @return void
+     * @return null
      */
     public function delete(int $id, ?string $contentAction = self::CONTENT_ACTION_NONE, bool $contentAnonymize = false)
     {
@@ -103,6 +103,82 @@ class Members extends \InvisionApi\Endpoints\AbstractEndpoint
                 'contentAnonymize' => $contentAnonymize ? 'true' : 'false'
             ]
         ]));
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * Get list of items a member is following
+     * GET /core/members/{id}/follows
+     * @param int $memberId member ID
+     * @param int $page Page number
+     * @param int $perPage Number of results per page - defaults to 25
+     * @param array $parameters Additional search paremeters
+     * @throws ApiException
+     * @return \stdClass
+     */
+    public function listFollowing(int $memberId, int $page = 1, int $perPage = 25): \stdClass
+    {
+        /** @param \Psr\Http\Message\ResponseInterface $response */
+        $response = $this->client->request('GET', static::ENDPOINT . "{$memberId}/follows", $this->api->opts([
+            'query' => ['page' => $page, 'perPage' => $perPage]
+        ]));
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * Store a new follow for the member
+     * POST /core/members/{id}/follows
+     * @param int $memberId member ID
+     * @param string $followApp Application of the content to follow
+     * @param string $followArea Area of the content to follow
+     * @param int $followId ID of the content to follow
+     * @param array|null $parameters Any additional optional paremeters
+     * @throws ApiException
+     * @return \stdClass
+     */
+    public function addFollowing(int $memberId, string $followApp, string $followArea, int $followId, ?array $parameters = []): \stdClass
+    {
+        /** @param \Psr\Http\Message\ResponseInterface $response */
+        $response = $this->client->request('POST', static::ENDPOINT . "{$memberId}/follows", $this->api->opts([
+            'form_params' => \array_merge_recursive(
+            [
+                'followApp' => $followApp,
+                'followArea' => $followArea,
+                'followId' => $followId
+            ], (array)$parameters
+        )
+        ]));
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * Delete a follow for the member
+     * DELETE /core/members/{memberId}/follows/{followKey}
+     * @param int $memberId member ID
+     * @param string $followKey follow key; can be obtained via the listFollowing endpoint
+     * @throws ApiException
+     * @return null
+     */
+    public function deleteFollowing(int $memberId, string $followKey)
+    {
+        /** @param \Psr\Http\Message\ResponseInterface $response */
+        $response = $this->client->request('DELETE', static::ENDPOINT . "{$memberId}/follows/{$followKey}", $this->api->opts());
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * Get a list of notifications for a member
+     * GET /core/members/{id}/notifications
+     * @param int $memberId member ID
+     * @param int $page Page number
+     * @param int $perPage Number of results per page - defaults to 25
+     * @throws ApiException
+     * @return \stdclass
+     */
+    public function notifications(int $id, int $page = 1, int $perPage = 25): \stdClass
+    {
+        /** @param \Psr\Http\Message\ResponseInterface $response */
+        $response = $this->client->request('GET', static::ENDPOINT . "{$id}/notifications", $this->api->opts());
         return $this->parseResponse($response);
     }
 }

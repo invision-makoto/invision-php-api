@@ -99,6 +99,7 @@ abstract class AbstractEndpoint
 
                 case 'INVALID_ID':
                 case 'INVALID_MEMBER':
+                case 'INVALID_FOLLOW_KEY':
                     throw new NotFoundException($data->errorCode, $data->errorMessage);
 
                 default:
