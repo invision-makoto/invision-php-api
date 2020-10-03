@@ -82,9 +82,9 @@ class Clubs extends \InvisionApi\Endpoints\AbstractEndpoint
      * DELETE /core/clubs/{id}
      * @param int $id Club ID
      * @throws ApiException
-     * @return \stdclass
+     * @return void
      */
-    public function delete(int $id): \stdClass
+    public function delete(int $id)
     {
         /** @param \Psr\Http\Message\ResponseInterface $response */
         $response = $this->client->request('DELETE', static::ENDPOINT . $id, $this->api->opts());
@@ -148,9 +148,9 @@ class Clubs extends \InvisionApi\Endpoints\AbstractEndpoint
      * @param int $clubId Club ID
      * @param int $memberId Member ID
      * @throws ApiException
-     * @return \stdclass
+     * @return void
      */
-    public function removeMember(int $clubId, int $memberId): \stdClass
+    public function removeMember(int $clubId, int $memberId)
     {
         /** @param \Psr\Http\Message\ResponseInterface $response */
         $response = $this->client->request('DELETE', static::ENDPOINT . "{$clubId}/members/{$memberId}", $this->api->opts());
